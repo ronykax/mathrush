@@ -4,6 +4,7 @@ import Finished from "./Finished";
 import useTimer from "@/hooks/useTimer";
 
 import { Sometype_Mono } from "next/font/google";
+import { useAppearance } from "@/hooks/useAppearance";
 
 const font = Sometype_Mono({ subsets: ["latin"] });
 
@@ -14,6 +15,8 @@ interface problem {
 }
 
 function Game() {
+  const { mode } = useAppearance();
+  
   const [index, setIndex] = React.useState(0);
   const [answer, setAnswer] = React.useState("");
   const [finished, isFinished] = React.useState(false);
@@ -55,13 +58,13 @@ function Game() {
     ) : (
       <main className="flex flex-col items-center gap-4">
         <Close />
-        <h1 className="text-[#d1d1d1] text-lg mb-8 font-semibold">Problem {index + 1} / {problems.length}</h1>
-        <h1 className={`${font.className} text-6xl font-bold text-right`}>
+        <h1 className={`mb-10 text-lg font-semibold text-${mode}-secondary`}>{index + 1} / {problems.length}</h1>
+        <h1 className={`${font.className} text-6xl font-bold text-right text-${mode}-primary`}>
           {num1}<br />{operator.replace("/", "÷")} {num2}
         </h1>
         <div className="text-center">
-          <input name="answer" className={`${font.className} border-none focus:ring-normalgray font-semibold w-40 pt-1 pb-1 pl-2 pr-2 text-6xl text-right rounded-lg bg-darkgray focus:outline-none focus:ring-2 focus:ring-lighergray`} type="text" inputMode="numeric" value={answer} onChange={(change) => checkAnswer(change.target.value)} />
-          <p className="mt-2 text-sm text-lightergray">Elapsed Time: {time}s</p>
+          <input name="answer" className={`${font.className} border-none focus:ring-${mode}-secondary font-semibold w-40 pt-1 pb-1 pl-2 pr-2 text-6xl text-${mode}-primary text-right rounded-lg bg-${mode}-default focus:outline-none focus:ring-2 focus:ring-${mode}-primary`} type="text" inputMode="numeric" value={answer} onChange={(change) => checkAnswer(change.target.value)} />
+          <p className={`mt-4 text-sm text-${mode}-secondary`}>Elapsed Time: {time}s</p>
         </div>
       </main>
     )

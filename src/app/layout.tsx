@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { AppearanceProvider } from "@/hooks/useAppearance";
 
 const font = Montserrat({ subsets: ['latin'] });
 
@@ -13,7 +14,9 @@ function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={font.className}>
-        {children}
+        <AppearanceProvider>
+          {children}
+        </AppearanceProvider>
       </body>
     </html>
   )
