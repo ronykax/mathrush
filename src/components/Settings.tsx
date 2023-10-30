@@ -7,11 +7,11 @@ function Settings() {
       <div className="flex flex-col">
         <h1 className="mb-4 text-2xl font-semibold">Account</h1>
         <button className="px-4 py-2 mb-2 text-left rounded bg-darkgray hover:bg-lightdarkgray" onClick={signOut}>Sign Out</button>
-        <button className="px-4 py-2 mb-2 text-left rounded bg-darkgray hover:bg-lightdarkgray">
-          <Link href={"/delete"}>
+        <Link href={"/delete"}>
+          <button className="px-4 py-2 mb-2 text-left rounded bg-darkgray hover:bg-lightdarkgray">
             Delete Account
-          </Link>
-        </button>
+          </button>
+        </Link>
       </div>
       <div className="flex flex-col">
         <h1 className="mb-4 text-2xl font-semibold">Appearance</h1>
