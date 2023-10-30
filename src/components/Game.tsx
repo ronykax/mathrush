@@ -60,8 +60,8 @@ function Game() {
           {num1}<br />{operator.replace("/", "÷")} {num2}
         </h1>
         <div className="text-center">
-          <input name="answer" className={`${font.className} appearance-none border-none font-semibold w-40 pt-1 pb-1 pl-2 pr-2 text-6xl text-right rounded-lg bg-darkgray focus:outline-none focus:ring-2 focus:ring-lighergray`} type="text" inputMode="numeric" value={answer} onChange={(change) => checkAnswer(change.target.value)} />
-          <p className="mt-2 text-sm text-lightgray">Elapsed Time: {time}s</p>
+          <input name="answer" className={`${font.className} border-none focus:ring-normalgray font-semibold w-40 pt-1 pb-1 pl-2 pr-2 text-6xl text-right rounded-lg bg-darkgray focus:outline-none focus:ring-2 focus:ring-lighergray`} type="text" inputMode="numeric" value={answer} onChange={(change) => checkAnswer(change.target.value)} />
+          <p className="mt-2 text-sm text-lightergray">Elapsed Time: {time}s</p>
         </div>
       </main>
     )

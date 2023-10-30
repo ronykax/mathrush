@@ -11,6 +11,7 @@ const config: Config = {
       lightdarkgray: "#262626",
       darkgray: "#1e1e1e",
       normalgray: "#4A4A4A",
+      lightergray: "#808080"
     },
   },
   plugins: [require("@tailwindcss/forms")],
