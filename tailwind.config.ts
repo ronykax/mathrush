@@ -13,7 +13,7 @@ const config: Config = {
       normalgray: "#4A4A4A",
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
 
 export default config;
