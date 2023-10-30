@@ -7,7 +7,8 @@ function Settings() {
   const { mode, changeMode } = useAppearance();
 
   const handleChange = (change: string) => {
-    localStorage.setItem("mode", change);
+    // set mode to 'change' in firestore
+    // ...
 
     setTimeout(() => {
       changeMode(mode);
