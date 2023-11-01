@@ -76,7 +76,7 @@ function Page() {
                     <p>Loading ...</p>
                   ) : (
                     finished ? (
-                      <p className="font-semibold leading-loose text-secondary">You have already completed today's set of problems in {time} seconds. Come back tommorow!</p>
+                      <p className="font-semibold leading-loose text-secondary">You have already completed today&apos;s set of problems in {time} seconds. Come back tommorow!</p>
                     ) : (
                       <button className="px-4 py-2 rounded bg-default hover:bg-hover" onClick={() => showGame(true)}>Start</button>
                     )
