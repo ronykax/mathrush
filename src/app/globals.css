@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  color: white;
+  transition: all ease-in-out 150ms;
+}
+
+body {
+  background-color: #111111;
+}
+
+.caret-invisible {
+  caret-color: #ffffff00;
+}
