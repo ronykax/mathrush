@@ -43,7 +43,7 @@ function Page() {
           )}
           <div className="flex flex-col items-center gap-4 text-center fade-in">
             <h1 className="text-4xl">Math Rush</h1>
-            <p>Speed run through 20 math problems</p>
+            <p className="m-4">Speed run through 20 math problems</p>
             <div className="mt-8 flex gap-3">
               {user ? (
                 <div onClick={() => showGame(true)}>
