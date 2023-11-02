@@ -125,7 +125,7 @@ function Game() {
     <main className="flex flex-col items-center gap-4 text-center fade-in">
       <div className={`${font.className} font-bold text-6xl flex flex-col items-center gap-4`}>
         <h1 className="text-right tracking-widest">{num1}<br />{operator.replace("/", "÷")} {num2}</h1>
-        <input className="w-40 p-3 rounded-md bg-default text-right tracking-widest focus:ring-2 focus:ring-secondary focus:border-none focus:outline-none placeholder:text-primary placeholder:text-opacity-30 caret-default" type="text" id="answer-input" placeholder={`#${index + 1}`} value={answer} onChange={(change) => checkAnswer(change.target.value)} autoFocus={settings.autoFocus} />
+        <input className="w-40 p-3 rounded-md bg-default text-right tracking-widest focus:ring-2 focus:ring-secondary focus:border-none focus:outline-none placeholder:text-primary placeholder:text-opacity-30 caret-default" type="text" inputMode="numeric" id="answer-input" placeholder={`#${index + 1}`} value={answer} onChange={(change) => checkAnswer(change.target.value)} autoFocus={settings.autoFocus} />
       </div>
       {settings.elapsedTime && <p className="text-sm text-secondary" onClick={() => isFinished(true)}>Elapsed Time: {timerTime}s</p>}
     </main>
