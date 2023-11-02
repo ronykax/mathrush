@@ -14,6 +14,8 @@ function Settings() {
   const [countdown, setCountdown] = React.useState(true);
   const [elapsedTime, setElapsedTime] = React.useState(true);
 
+  const [confirmation, showConfirmation] = React.useState(false);
+
   React.useEffect(() => {
     const check = async () => {
       const docRef = await getDoc(doc(users, auth.currentUser?.uid));
@@ -79,6 +81,18 @@ function Settings() {
     <p className="fade-in">Loading...</p>
   )
 
+  if (confirmation) return (
+    <div className="flex flex-col items-center gap-4 text-center fade-in">
+      <h1 className="text-4xl">Delete Account</h1>
+      <p className="mx-4">Sad to see you go :(</p>
+      <div className="mt-8 flex gap-3">
+        <div onClick={deleteAccount}>
+          <Button text="Confirm" />
+        </div>
+      </div>
+    </div>
+  )
+
   return (
     <main className="flex flex-col gap-8 fade-in">
       <h1 className="text-4xl">Rony Philip</h1>
@@ -86,7 +100,7 @@ function Settings() {
         <div onClick={signOut}>
           <Button text="Sign out" />
         </div>
-        <div onClick={deleteAccount}>
+        <div onClick={() => showConfirmation(true)}>
           <Button text="Delete Account" />
         </div>
       </div>
