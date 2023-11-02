@@ -1,1 +1,1 @@
-# Math Rush
+# MATH RUSH YESSS

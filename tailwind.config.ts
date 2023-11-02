@@ -8,14 +8,15 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      bgcolor: "#111111",
+      bgcolor: "#181821",
+      default: "#292935",
+      hover: "#252530",
       primary: "#FFFFFF",
-      secondary: "#CDCDCD",
-      default: "#1e1e1e",
-      hover: "#2c2c2c"
+      secondary: "#DDDDDD",
+      black: "#000000"
     }
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [],
 }
 
 export default config;

@@ -9,36 +9,30 @@ const app = initializeApp({
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 });
 
-export const auth = getAuth(app);
+const db = getFirestore();
+const provider = new GoogleAuthProvider();
 
-export const db = getFirestore();
+export const auth = getAuth(app);
 export const users = collection(db, "users");
 
-export const signIn = async () => {
-  const provider = new GoogleAuthProvider();
-
+export const signIn = async () => { 
   await signInWithRedirect(auth, provider);
 }
 
 export const signOut = async () => {
   await auth.signOut();
-
   window.location.reload();
 }
 
 export const deleteAccount = async () => {
-  try {
-    await deleteDoc(doc(users, auth.currentUser?.uid));
-    await auth.currentUser?.delete();
+  await deleteDoc(doc(users, auth.currentUser?.uid));
 
-    window.location.reload();
-  } catch {
-    alert("Please sign out, then sign in and try again.");
-  }
+  await auth.currentUser?.delete()
+    .then(() => window.location.reload())
+    .catch(() => {
+      alert("Please sign out, then sign in and try again.")
+    });
 }
-
-// import { getAnalytics } from "firebase/analytics";
-// const analytics = getAnalytics(app);

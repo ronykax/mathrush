@@ -1,43 +1,130 @@
+"use client";
+
 import React from "react";
-import { signOut, deleteAccount } from "@/firebase";
+import Link from "next/link";
+import Button from "@/components/Button";
+import { signOut, deleteAccount, users, auth } from "@/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 function Settings() {
-  const [confirmation, showConfirmation] = React.useState(false);
+  const [loading, isLoading] = React.useState(true);
+
+  const [autoFocus, setAutoFocus] = React.useState(true);
+  const [confetti, setConfetti] = React.useState(true);
+  const [countdown, setCountdown] = React.useState(true);
+  const [elapsedTime, setElapsedTime] = React.useState(true);
+
+  React.useEffect(() => {
+    const check = async () => {
+      const docRef = await getDoc(doc(users, auth.currentUser?.uid));
+      const docSnap = docRef.data();
+  
+      if (docSnap && docSnap.settings) {
+        const settings = docSnap.settings;
+
+        setAutoFocus(settings.autoFocus === undefined ? true : settings.autoFocus);
+        setConfetti(settings.confetti === undefined ? true : settings.confetti);
+        setCountdown(settings.countdown === undefined ? true : settings.countdown);
+        setElapsedTime(settings.elapsedTime === undefined ? true : settings.elapsedTime);
+      }
+
+      isLoading(false);
+    }
+
+    check();
+  }, [autoFocus, confetti, countdown, elapsedTime]);
+
+  const handleCheck = async (field: "autoFocus" | "confetti" | "countdown" | "elapsedTime") => {
+    let checked: boolean = false;
+    
+    if (field === "autoFocus") {
+      checked = !autoFocus;
+    } else if (field === "confetti") {
+      checked = !confetti;
+    } else if (field === "countdown") {
+      checked = !countdown;
+    } else if (field === "elapsedTime") {
+      checked = !elapsedTime;
+    }
+
+    const docRef = doc(users, auth.currentUser?.uid);
+    const docSnap = await getDoc(docRef);
+
+    await setDoc(docRef, {
+      ...docSnap.data(),
+      settings: {
+        ...docSnap.data()?.settings,
+        [field]: checked
+      }
+    }).then(() => {
+      if (field === "autoFocus") {
+        setAutoFocus(checked);
+      } else if (field === "confetti") {
+        setConfetti(checked);
+      } else if (field === "countdown") {
+        setCountdown(checked);
+      } else if (field === "elapsedTime") {
+        setElapsedTime(checked);
+      }
+    });
+  }
+
+  const Dot = () => {
+    return (
+      <span className="mr-3">•</span>
+    )
+  }
+
+  if (loading) return (
+    <p className="fade-in">Loading...</p>
+  )
 
   return (
-    confirmation ? (
-      <main className="flex flex-col items-center gap-4 text-center">
-        <h1 className="text-4xl font-semibold">Delete Account</h1>
-        <p className="leading-loose">Are you sure you want to delete your account?</p>
-        <div className="mt-6 flex gap-3">
-          <button className="px-4 py-2 rounded bg-default hover:bg-hover" onClick={deleteAccount}>Yes</button>
-          <button className="px-4 py-2 rounded bg-default hover:bg-hover" onClick={() => window.location.reload()}>Cancel</button>
+    <main className="flex flex-col gap-8 fade-in">
+      <h1 className="text-4xl">Rony Philip</h1>
+      <div className="flex flex-col gap-3 md:flex-row">
+        <div onClick={signOut}>
+          <Button text="Sign out" />
         </div>
-      </main>
-    ) : (
-      <main className="flex gap-3">
-        <button className="px-4 py-2 rounded bg-default hover:bg-hover" onClick={signOut}>Sign Out</button>
-        <button className="px-4 py-2 rounded bg-default hover:bg-hover" onClick={() => showConfirmation(true)}>Delete Account</button>
-      </main>
-    )    
-    // <main className="flex flex-col items-center gap-4">
-    //   <div className="flex flex-col gap-8 items-start">
-    //     <div className="flex flex-col gap-4">
-    //       <h1 className="text-4xl font-semibold">Account</h1>
-    //       <div className="flex gap-3">
-    //         <button className="px-4 py-2 rounded bg-default hover:bg-hover">Sign Out</button>
-    //         <button className="px-4 py-2 rounded bg-default hover:bg-hover">Delete Account</button>
-    //       </div>
-    //     </div>
-    //     <div className="flex flex-col gap-4">
-    //       <h1 className="text-4xl font-semibold">Premium</h1>
-    //       <p>Upgrade to premium to get unlimited retries</p>
-    //       <div className="flex gap-3">
-    //         <button className="px-4 py-2 rounded bg-default hover:bg-hover">Upgrade</button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </main>
+        <div onClick={deleteAccount}>
+          <Button text="Delete Account" />
+        </div>
+      </div>
+      <ul className="flex flex-col gap-2">
+        <li>
+          <div className="flex justify-between">
+            <h1><Dot />Auto Focus</h1>
+            <input className="w-4 focus:ring-secondary focus:ring-0" type="checkbox" id="auto-focus-checkbox" onChange={() => handleCheck("autoFocus")} checked={autoFocus} />
+          </div>
+        </li>
+        <li>
+          <div className="flex justify-between">
+            <h1><Dot />Confetti</h1>
+            <input className="w-4 focus:ring-secondary focus:ring-0" type="checkbox" id="confetti-checkbox" onChange={() => handleCheck("confetti")} checked={confetti} />
+          </div>
+        </li>
+        <li>
+          <div className="flex justify-between">
+            <h1><Dot />Countdown</h1>
+            <input className="w-4 focus:ring-secondary focus:ring-0" type="checkbox" name="countdown-checkbox" onChange={() => handleCheck("countdown")} checked={countdown} />
+          </div>
+        </li>
+        <li>
+          <div className="flex justify-between">
+            <h1><Dot />Elapsed Time</h1>
+            <input className="w-4 focus:ring-secondary focus:ring-0" type="checkbox" name="elapsed-time-checkbox" onChange={() => handleCheck("elapsedTime")} checked={elapsedTime} />
+          </div>
+        </li>
+      </ul>
+      <ul className="flex flex-col gap-2">
+        <li>
+          <Dot /><Link className="hover:text-secondary" href={"/privacy"}>Privacy Policy</Link>
+        </li>
+        <li>
+          <Dot /><Link className="hover:text-secondary" href={"/terms"}>Terms of Service</Link>
+        </li>
+      </ul>
+    </main>
   )
 }
 

@@ -1,13 +1,14 @@
 import "./globals.css";
-import type { Metadata } from "next";
-import { AuthProvider } from "@/context/AuthContext";
-import { Montserrat } from "next/font/google";
 
-const font = Montserrat({ subsets: ['latin'] })
+import { Metadata } from "next";
+import { Poppins } from "next/font/google";
+import { AuthProvider } from "@/context/AuthContext";
+
+const font = Poppins({ weight: "400", subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: "Math Rush",
-  description: "Race the clock and solve 20 math problems as fast as you can (new problems everyday)"
+  description: "Speed run through 20 math problems"
 }
 
 function RootLayout({ children }: { children: React.ReactNode }) {

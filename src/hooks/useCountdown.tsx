@@ -1,7 +1,7 @@
 import React from "react";
 
-function useTimer(interval: number) {
-  const [timerTime, setTimerTime] = React.useState(0);
+function useCountdown(interval: number, startAt: number) {
+  const [countdownTime, setCountdownTime] = React.useState(startAt);
   const [running, setRunning] = React.useState(false);
 
   React.useEffect(() => {
@@ -9,22 +9,22 @@ function useTimer(interval: number) {
 
     if (running) {
       timer = setInterval(() => {
-        setTimerTime((time) => time + 1);
+        setCountdownTime((time) => time - 1);
       }, interval);
     }
 
     return () => clearInterval(timer);
   }, [running, interval]);
 
-  const startTimer = () => {
+  const startCountdown = () => {
     setRunning(true);
   }
 
-  const stopTimer = () => {
+  const stopCountdown = () => {
     setRunning(false);
   }
 
-  return { startTimer, stopTimer, timerTime }
+  return { startCountdown, stopCountdown, countdownTime }
 }
 
-export default useTimer;
+export default useCountdown;

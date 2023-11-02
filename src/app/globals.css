@@ -3,14 +3,24 @@
 @tailwind utilities;
 
 * {
-  color: white;
-  transition: all ease-in-out 150ms;
+  color: #FFFFFF;
+  transition: all ease-in-out 125ms;
 }
 
 body {
-  background-color: #111111;
+  background-color: #181821;
 }
 
-.caret-invisible {
-  caret-color: #ffffff00;
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.15s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
