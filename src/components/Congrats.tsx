@@ -19,7 +19,7 @@ function Congrats({ time, name, confetti }: { time: number, name: string, confet
   return (
     <main className="flex flex-col items-center gap-4 text-center fade-in">
       <h1 className="text-4xl">Congrats</h1>
-      <p>You finished the set of problems in {time} seconds!</p>
+      <p className="mx-4">You finished the set of problems in {time} seconds!</p>
       <div className="mt-8 flex gap-3">
         <div onClick={share}>
           <Button text="SHARE" />
