@@ -11,7 +11,7 @@ function Settings() {
 
   const [autoFocus, setAutoFocus] = React.useState(true);
   const [confetti, setConfetti] = React.useState(true);
-  const [countdown, setCountdown] = React.useState(true);
+  const [countdown, setCountdown] = React.useState(false);
   const [elapsedTime, setElapsedTime] = React.useState(true);
 
   const [confirmation, showConfirmation] = React.useState(false);
@@ -26,7 +26,7 @@ function Settings() {
 
         setAutoFocus(settings.autoFocus === undefined ? true : settings.autoFocus);
         setConfetti(settings.confetti === undefined ? true : settings.confetti);
-        setCountdown(settings.countdown === undefined ? true : settings.countdown);
+        setCountdown(settings.countdown === undefined ? false : settings.countdown);
         setElapsedTime(settings.elapsedTime === undefined ? true : settings.elapsedTime);
       }
 

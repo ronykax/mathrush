@@ -32,7 +32,7 @@ function Game() {
   const [settings, setSettings] = React.useState<Settings>({
     autoFocus: true,
     confetti: true,
-    countdown: true,
+    countdown: false,
     elapsedTime: true
   });
 
@@ -62,7 +62,7 @@ function Game() {
         } else {
           setIndex(index + 1);
         }
-      }, 175);
+      }, 125);
     }
   }
 
@@ -77,7 +77,7 @@ function Game() {
         setSettings({
           autoFocus: settings.autoFocus === undefined ? true : settings.autoFocus,
           confetti: settings.confetti === undefined ? true : settings.confetti,
-          countdown: settings.countdown === undefined ? true : settings.countdown,
+          countdown: settings.countdown === undefined ? false : settings.countdown,
           elapsedTime: settings.elapsedTime === undefined ? true : settings.elapsedTime
         });
       }
