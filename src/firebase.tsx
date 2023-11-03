@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, deleteDoc, doc } from "firebase/firestore";
-import { getAuth, signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const app = initializeApp({
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -19,7 +19,7 @@ export const auth = getAuth(app);
 export const users = collection(db, "users");
 
 export const signIn = async () => { 
-  await signInWithRedirect(auth, provider);
+  await signInWithPopup(auth, provider);
 }
 
 export const signOut = async () => {
